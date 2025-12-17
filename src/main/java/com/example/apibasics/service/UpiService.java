@@ -23,7 +23,13 @@ public class UpiService implements UPIServiceInterface {
 
     @Override
     public String updateAccountService(String email, Account account) {
-        return "Account Updated Successfully";
+        boolean isEmailPresent = upidaoInterface.findById(email).isPresent();
+        if(isEmailPresent){
+            upidaoInterface.save(account);
+            return "Account Updated Successfully";
+        }else{
+            return "Account Not Found";
+        }
     }
 
     @Override
